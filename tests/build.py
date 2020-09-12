@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import subprocess
 
 lvgldirname = os.path.abspath('..')
 lvgldirname = os.path.basename(lvgldirname)
@@ -28,12 +29,12 @@ def build(name, defines):
   print("---------------------------")
   print("Clean")
   print("---------------------------")
-  os.system("make clean LVGL_DIR_NAME=" + lvgldirname)
-  os.system("rm -f ./test.bin")
+  subprocess.call("make clean LVGL_DIR_NAME=" + lvgldirname)
+  subprocess.call("rm -f ./test.bin")
   print("---------------------------")
   print("Build")
   print("---------------------------")
-  ret = os.system(cmd)
+  ret = subprocess.call(cmd)
   if(ret != 0): 
     print("BUILD ERROR! (error code  " + str(ret) + ")")
     exit(1)
@@ -41,7 +42,7 @@ def build(name, defines):
   print("---------------------------")
   print("Run")
   print("---------------------------")
-  ret = os.system("./test.bin")
+  ret = subprocess.call("./test.bin")
   if(ret != 0): 
     print("RUN ERROR! (error code  " + str(ret) + ")")
     exit(1)
