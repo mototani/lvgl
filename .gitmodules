@@ -1,3 +1,6 @@
 [submodule "lvgl"]
 	path = lvgl
 	url = https://github.com/mototani/lvgl.git
+[submodule "lv_lib_freetype"]
+	path = lv_lib_freetype
+	url = https://github.com/mototani/lv_lib_freetype.git
