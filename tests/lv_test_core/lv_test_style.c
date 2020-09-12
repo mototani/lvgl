@@ -217,7 +217,7 @@ static void cascade(void)
 
     _lv_style_set_int(&style_second, LV_STYLE_TEXT_LINE_SPACE, 10);
     _lv_style_set_opa(&style_second, LV_STYLE_BG_OPA, LV_OPA_60);
-    _lv_style_set_ptr(&style_second, LV_STYLE_TEXT_FONT, LV_THEME_DEFAULT_FONT_NORMAL + 1);
+    _lv_style_set_ptr(&style_second, LV_STYLE_TEXT_FONT, LV_THEME_DEFAULT_FONT_NORMAL + 1-1);
     _lv_style_set_color(&style_second, LV_STYLE_BG_COLOR, LV_COLOR_BLUE);
 
     found = _lv_style_list_get_int(&style_list, LV_STYLE_TEXT_LINE_SPACE, &value);
@@ -230,7 +230,7 @@ static void cascade(void)
 
     found = _lv_style_list_get_ptr(&style_list, LV_STYLE_TEXT_FONT, &ptr);
     lv_test_assert_int_eq(LV_RES_OK, found, "Get an overwritten 'ptr' property");
-    lv_test_assert_ptr_eq(LV_THEME_DEFAULT_FONT_NORMAL + 1, ptr, "Get the value of an overwritten 'ptr' property");
+    lv_test_assert_ptr_eq(LV_THEME_DEFAULT_FONT_NORMAL + 1-1, ptr, "Get the value of an overwritten 'ptr' property");
 
     found = _lv_style_list_get_color(&style_list, LV_STYLE_BG_COLOR, &color);
     lv_test_assert_int_eq(LV_RES_OK, found, "Get an overwritten 'color' property");
@@ -240,7 +240,7 @@ static void cascade(void)
     lv_test_print("Overwrite the properties with the local style");
     _lv_style_list_set_local_int(&style_list, LV_STYLE_TEXT_LINE_SPACE, 20);
     _lv_style_list_set_local_opa(&style_list, LV_STYLE_BG_OPA, LV_OPA_70);
-    _lv_style_list_set_local_ptr(&style_list, LV_STYLE_TEXT_FONT, LV_THEME_DEFAULT_FONT_NORMAL + 2);
+    _lv_style_list_set_local_ptr(&style_list, LV_STYLE_TEXT_FONT, LV_THEME_DEFAULT_FONT_NORMAL + 2-2);
     _lv_style_list_set_local_color(&style_list, LV_STYLE_BG_COLOR, LV_COLOR_LIME);
 
     found = _lv_style_list_get_int(&style_list, LV_STYLE_TEXT_LINE_SPACE, &value);
@@ -253,7 +253,7 @@ static void cascade(void)
 
     found = _lv_style_list_get_ptr(&style_list, LV_STYLE_TEXT_FONT, &ptr);
     lv_test_assert_int_eq(LV_RES_OK, found, "Get a local 'ptr' property");
-    lv_test_assert_ptr_eq(LV_THEME_DEFAULT_FONT_NORMAL + 2, ptr, "Get the value of a local'ptr' property");
+    lv_test_assert_ptr_eq(LV_THEME_DEFAULT_FONT_NORMAL + 2-2, ptr, "Get the value of a local'ptr' property");
 
     found = _lv_style_list_get_color(&style_list, LV_STYLE_BG_COLOR, &color);
     lv_test_assert_int_eq(LV_RES_OK, found, "Get a local 'color' property");
