@@ -1,2 +1,8 @@
 *~
 debug/
+lv_ex_conf.h
+lv_examples/
+lv_drv_conf.h
+lv_drivers/
+japanese/
+lv_test_suite/
