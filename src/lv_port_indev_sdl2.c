@@ -253,6 +253,7 @@ static bool mouse_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
 {
     /*Get the current x and y coordinates*/
     mouse_get_xy(&data->point.x, &data->point.y);
+	SDL_Log("x,y=%d,%d", data->point.x, data->point.y);
 
     /*Get whether the mouse button is pressed or released*/
     if(mouse_is_pressed()) {

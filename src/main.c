@@ -7,13 +7,15 @@
 
 static void hal_init();
 static int tick_thread(void *data);
+void lv_log_print(lv_log_level_t level, const char *, uint32_t, const char *, const char *);
 
 int main(int argc, char** argv)
 {
-	SDL_Init(SDL_INIT_VIDEO);
-
+	SDL_Init(SDL_INIT_EVERYTHING);
 	SDL_LogSetAllPriority(SDL_LOG_PRIORITY_VERBOSE);
+	SDL_LogVerbose(SDL_LOG_CATEGORY_APPLICATION, "---- %s", __TIME__);
 
+	lv_log_register_print_cb(lv_log_print);
     lv_init();
     hal_init();
 
@@ -22,7 +24,7 @@ int main(int argc, char** argv)
     //lv_demo_keypad_encoder();
     //lv_demo_printer();
     //lv_demo_stress();
-    lv_ex_get_started_1();
+    //lv_ex_get_started_1();
     //lv_ex_get_started_2();
     //lv_ex_get_started_3();
 
@@ -37,6 +39,37 @@ int main(int argc, char** argv)
     //lv_ex_style_9();
     //lv_ex_style_10();
     //lv_ex_style_11();
+
+	lv_ex_label_1();
+
+	int quit = 0;
+	Uint32 t0 = SDL_GetTicks();
+	while (!quit) {
+        /* Periodically call the lv_task handler.
+        * It could be done in a timer interrupt or an OS task too.*/
+        lv_task_handler();
+
+		SDL_Event event;
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+			case SDL_QUIT:
+				quit = 1;
+				break;
+			default:
+				break;
+			}
+		}
+
+		Uint32 t1 = SDL_GetTicks();
+		Uint32 td = t1 - t0; /* expect for wrap around */
+		int timeout = 16 - (td%16);
+		SDL_Delay(timeout);
+		t0 = t1;
+	}
+	SDL_Quit();
+	return 0;
+
+#if 0
 
 	Uint32 t0 = SDL_GetTicks();
 	int quit = 0;
@@ -71,6 +104,7 @@ int main(int argc, char** argv)
 	SDL_Quit();
 
     return 0;
+#endif
 }
 
 /**********************
@@ -111,9 +145,19 @@ static void hal_init(void)
 static int tick_thread(void *data)
 {
 	while (1) {
-		SDL_Delay(5);   /*Sleep for 1 millisecond*/
-		lv_tick_inc(5);
+		SDL_Delay(10);   /*Sleep for 1 millisecond*/
+		lv_tick_inc(10);
     }
 
     return 0;
+}
+
+/**
+ * Log print function. Receives "Log Level", "File path", "Line number", "Function name" and "Description".
+ */
+void lv_log_print(lv_log_level_t level, const char *path, uint32_t line, const char *func, const char *desc)
+{
+	if (level > 0) {
+		SDL_LogVerbose(SDL_LOG_CATEGORY_APPLICATION, "[%d]%s:%d:%s", level, func, line, desc);
+	}
 }
