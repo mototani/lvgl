@@ -13,7 +13,7 @@ DEPPATH :=
 
 VPATH   := src:$(LVGL_DIR)/$(LVGL_DIR_NAME)/$(OBJDIR)
 
-CFLAGS  := -I$(LVGL_DIR) -I$(LVGL_DIR)/$(LVGL_DIR_NAME)
+CFLAGS  := -I$(LVGL_DIR) -I$(LVGL_DIR)/$(LVGL_DIR_NAME) -Ijapanese
 CFLAGS  += $(shell pkg-config --cflags sdl2 libpng freetype2)
 
 LDFLAGS :=
